@@ -33,6 +33,8 @@ TODO: You can delete all the text we have put here to start with, but keep the e
 A useful "README" file is considered a good practice for shared or world-visible repositories, so it makes sense to get into the
 habit for this unit. However, please keep in mind that this repository should NOT be made visible to the world.
 
+This is my first time entering this unit. After this unit, I would know how to write AI for my future games.
+
 ## Notes
 * Do not share teaching materials provided in this unit online. That include lecture notes, sample code, spike documents, as well as your own work that could be inappropriately used by someone else.
 * TODO: Learn to use markdown! There are many introduction tutorials to markdown.
