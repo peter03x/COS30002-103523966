@@ -1,0 +1,7 @@
+Hoang Bao Phuc Chau
+103523966
+COS30002 - Task 1 Report 
+Date 26/02/2024
+
+In this task, I successfully created GitHub Repository for this unit and add unit staffs as collaborators. 
+Then, I modified the Readme.md file so that it contains my basic information and my first phrase
