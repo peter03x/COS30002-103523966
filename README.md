@@ -6,7 +6,9 @@ This is the base repository for AI for Games @ Swinburne University. Students ar
 # 2024 AI for Games
 
 ## Who Am I?
-TODO: Add your name, student id, and easy email link here, formatted as a unordered list.
+- Hoang Bao Phuc Chau
+- 103523966
+- 103523966@student.swin.edu.au
 
 ## Purpose
 * Your fork of this repository is for you and the teaching staff only. It should private and not be visible to the world.
