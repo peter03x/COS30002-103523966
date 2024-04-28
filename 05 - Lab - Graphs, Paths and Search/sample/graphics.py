@@ -19,6 +19,10 @@ should implement opengl code for yourself.
 from pyglet.gl import *
 from pyglet import text, media, window, clock
 from math import cos, sin, pi
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+
 
 KEY = window.key # the key codes
 
@@ -42,6 +46,11 @@ COLOR_NAMES = {
     'LIGHT_PINK': (1.0, 0.9, 0.9, 1)
 }
 
+
+def gluDisk(qobj, param, radius, param1, param2):
+    pass
+
+
 class EasyGraphics(object):
 
     def __init__(self):
@@ -49,7 +58,7 @@ class EasyGraphics(object):
         self.pen_color = (1.0, 0.0, 0.0, 1.0)
         self.stroke = 1.0 # - thickness the default
 
-    def InitWithPyglet(self, window):
+    def InitWithPyglet(self, window, GLU_SILHOUETTE=None):
         # stuff that needs to be done *after* the pyglet window is created
         self.set_pen_color(self.pen_color)
         self.set_stroke(self.stroke)
