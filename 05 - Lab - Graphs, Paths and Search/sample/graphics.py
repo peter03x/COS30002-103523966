@@ -19,9 +19,7 @@ should implement opengl code for yourself.
 from pyglet.gl import *
 from pyglet import text, media, window, clock
 from math import cos, sin, pi
-from OpenGL.GL import *
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
+from pyglet.gl.glu import *
 
 
 KEY = window.key # the key codes
@@ -67,6 +65,7 @@ class EasyGraphics(object):
         self.text = text.Label('', color=(1, 1, 1, 1),
                               anchor_y='bottom', anchor_x='left')
         # prep the quadric object used by glu* functions (circle)
+        GLU_SILHOUETTE = GLU_FILL
         # styles GLU_LINE, GLU_FILL, GLU_SILHOUETTE, GLU_POINT
         self.qobj = gluNewQuadric()
         gluQuadricDrawStyle(self.qobj, GLU_SILHOUETTE)
