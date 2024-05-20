@@ -21,7 +21,7 @@ class Logger(object):
             The pattern must contain one '%s' which will be replaced with the
             name of each log file.
         '''
-        self._pattern = filename_pattern
+        self._pattern = filename_pattern + '.txt'
         self._results = []
         self._turns = []
         self._errors = []

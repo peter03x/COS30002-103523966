@@ -1,0 +1,32 @@
+I'm dead. BestWorst, [2]
+   1: Player 2 launched 78 (left 27) ships from planet 3 to planet 22
+  12: Player 2 launched 61 (left 21) ships from planet 3 to planet 23
+  27: Player 2 launched 72 (left 24) ships from planet 3 to planet 1
+  33: Player 2 launched 50 (left 17) ships from planet 1 to planet 10
+  46: Player 2 launched 89 (left 30) ships from planet 3 to planet 13
+  51: Player 2 launched 66 (left 22) ships from planet 13 to planet 11
+  69: Player 2 launched 114 (left 39) ships from planet 10 to planet 16
+  88: Player 2 launched 180 (left 60) ships from planet 3 to planet 8
+ 103: Player 2 launched 168 (left 56) ships from planet 11 to planet 12
+ 116: Player 2 launched 168 (left 57) ships from planet 16 to planet 9
+ 131: Player 2 launched 206 (left 69) ships from planet 3 to planet 14
+ 144: Player 2 launched 225 (left 76) ships from planet 13 to planet 18
+ 152: Player 2 launched 238 (left 80) ships from planet 8 to planet 19
+ 169: Player 2 launched 289 (left 97) ships from planet 11 to planet 15
+ 180: Player 2 launched 279 (left 93) ships from planet 10 to planet 13
+ 193: Player 2 launched 290 (left 97) ships from planet 18 to planet 6
+ 206: Player 2 launched 312 (left 105) ships from planet 16 to planet 20
+ 212: Player 2 launched 307 (left 103) ships from planet 19 to planet 23
+ 234: Player 2 launched 386 (left 129) ships from planet 3 to planet 5
+ 249: Player 2 launched 372 (left 125) ships from planet 11 to planet 2
+ 258: Player 2 launched 372 (left 125) ships from planet 6 to planet 21
+ 268: Player 2 launched 358 (left 120) ships from planet 20 to planet 9
+ 279: Player 2 launched 395 (left 132) ships from planet 18 to planet 10
+ 299: Player 2 launched 420 (left 140) ships from planet 12 to planet 17
+ 308: Player 2 launched 437 (left 146) ships from planet 19 to planet 1
+ 322: Player 2 launched 441 (left 148) ships from planet 13 to planet 4
+ 332: Player 2 launched 456 (left 153) ships from planet 16 to planet 7
+ 340: Player 2 launched 435 (left 145) ships from planet 11 to planet 8
+ 344: Player 2 launched 416 (left 139) ships from planet 6 to planet 7
+ 351: Player 2 launched 430 (left 144) ships from planet 2 to planet 17
+ 364: I won! BestWorst [2]

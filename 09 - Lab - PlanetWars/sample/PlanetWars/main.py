@@ -503,19 +503,19 @@ class PlanetWarsWindow(window.Window):
 
 
 if __name__ == '__main__':
-
     # Supplied map sizes were generated for (500, 500) size
     # Scale the visual size with this
-    screen_size_scale = 2
+    screen_size_scale = 1
 
     settings = {
         # text file - planet position/size, player start locations (and fleet details)
-        'map_file': './maps/map5.txt',
+        'map_file': './maps/map20.txt',
         # usually two players (what maps expect) but can have more
         'players': [
-            'OneMove',
-            'Blanko'
-            #'PingPong',
+            #'OneMove',
+            #'Blanko',
+            'Rando',
+            'BestWorst',
         ],
         # start / stop conditions
         'max_game_length': 500,
@@ -526,8 +526,8 @@ if __name__ == '__main__':
         # show the image or just black?
         'background_img': True,
         # window (passed to pyglet) details
-        'width': int(500 * screen_size_scale),
-        'height': int(500 * screen_size_scale),
+        'width': int(600 * screen_size_scale),
+        'height': int(600 * screen_size_scale),
         'vsync': True,
         'resizable': False,
     }
