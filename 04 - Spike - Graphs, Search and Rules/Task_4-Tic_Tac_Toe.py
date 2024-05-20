@@ -2,13 +2,14 @@ from random import randrange
 import random
 import math
 import time
+from random import shuffle
 
 class TicTacToe(object):
 
 
     def __init__(self):
         self.board = [[' ']*3 for _ in range(3)]
-        self.players = {'x': 'Human', 'o': 'Super AI'}
+        self.players = {'x': 'AI 1', 'o': 'AI 2'}
         self.winner = None
         self.current_player = 'x'
         self.col = self.row = 0
@@ -45,84 +46,118 @@ class TicTacToe(object):
             return board[0][2]
 
         # Check for a tie (draw)
-        if all(cell != "" for row in board for cell in row):
+        if all(cell != " " for row in board for cell in row):
             return "tie"
 
         return None
-    
+#----------------------------------------------------------------------------------------------------------
+    def get_possible_move(self, board):
+        possible_moves = []
+        for row in range(3):
+             for col in range(3):
+                 if (board[row][col] == ' '):
+                     possible_moves.append((row, col))
+        return possible_moves
 
-    def get_human_move(self):
-        '''Get a human players raw input '''
-        return input('[0-8] >> ')
-                
-    def get_ai_move(self):
+    # Get Total Random Moves----------------------------------------------------------------------------------
+    def get_total_random_moves(self):
         board = self.board
-        best_move = (None, None)
+        current_player = self.current_player
+        possible_moves = self.get_possible_move(board)
+        shuffle(possible_moves) #make the move become totally random
+
+        return possible_moves[0]
+
+    #Get random move with minimax (efficiency) -------------------------------------------------------------------
+    def get_efficient_move(self):
+        board = self.board
+        current_player = self.current_player
+        possible_moves = self.get_possible_move(board)
         best_score = -math.inf
-        for i in range(3):
-            for j in range(3):
-                #Is the spot available
-                if board[i][j] == "":
-                    board[i][j] = 'o'
-                    self.score = self.minimax(board)
-                    board[i][j] = ""
-                    if self.score > best_score:
-                        best_score = self.score
-                        best_move = (i, j)
+        best_move = (None, None)
 
-        # Perform the move
-        best_move_i, best_move_j = best_move
-        board[best_move_i][best_move_j] = 'o'
+        for move in possible_moves:
+            # simulate the move
+            board[move[0]][move[1]] = current_player
+            score = self.minimax(board, 0, False)
+            # undo the move
+            board[move[0]][move[1]] = " "
 
-        # Switch the current player
-        
+            if score > best_score:
+                best_score = score
+                best_move = move
 
-        return board
+        return best_move
 
-    def minimax(self, depth, is_maximizing):
-        board = self.board
+    #Minimax function
+    def minimax(self, board, depth, is_maximize):
         result = self.check_winner()
-        if (result == None):
-            return self.scores[result]
-        if (is_maximizing):
+        if result == self.current_player:
+            return 1
+        elif result is not None:
+            return -1
+        elif result == "tie":
+            return 0
+
+        if is_maximize:
             best_score = -math.inf
-            for i in range(3):
-                for j in range(3):
-                    if board[i][j] == '':
-                        board[i][j] = 'o'
-                        self.score = self.minimax(depth + 1, False)
-                        board[i][j] = ''
-                        if (self.score > best_score):
-                            best_score = self.score
-            
+            for move in self.get_possible_move(board):
+                board[move[0]][move[1]] = self.current_player
+                score = self.minimax(board, depth + 1, False)
+                board[move[0]][move[1]] = ' '
+                best_score = max(best_score, score)
             return best_score
+
         else:
             best_score = math.inf
-            for i in range(3):
-                for j in range(3):
-                    if board[i][j] == '':
-                        board[i][j] = 'x'
-                        self.score = self.minimax(depth + 1, True)
-                        board[i][j] = ''
-                        if (self.score < best_score):
-                            best_score = self.score
-            
-            return best_score
+            for move in self.get_possible_move(board):
+                board[move[0]][move[1]] = 'x' if self.current_player == 'o' else 'o'
+                score = self.minimax(board, depth + 1, True)
+                board[move[0]][move[1]] = ' '
+                best_score = max(best_score, score)
+                return best_score
 
-            
+        return best_score
+
+    # Get improved random move ------------------------------------------------------------------------------------------------
+    def get_effective_moves(self):
+        board = self.board
+        current_player = self.current_player
+        possible_moves = self.get_possible_move(board)
+        win_moves = []
+        block_moves = []
+        for move in possible_moves:
+            #simulate the move
+            board[move[0]][move[1]] = current_player
+            if self.check_winner() == self.current_player:
+                win_moves.append(move)
+            board[move[0]][move[1]] = ' '
+
+            #simulate opponent's move
+            opponent_player = 'x' if current_player == 'o' else 'o'
+            board[move[0]][move[1]] = opponent_player
+            if self.check_winner() == opponent_player:
+                block_moves.append(move)
+            board[move[0]][move[1]] = ' '
+
+        if win_moves:
+            return random.choice(win_moves)
+        elif block_moves:
+            return random.choice(block_moves)
+        else:
+            return random.choice(possible_moves)
+
     def process_input(self):
         if self.current_player == 'x':
-            self.move = self.get_human_move()
+            self.row, self.col = self.get_effective_moves()
         else:
-            self.move = self.get_ai_move()
-    
+            self.row, self.col = self.get_total_random_moves()
+
     def update(self):
-            self.board[self.row][self.col] = self.current_player
-            self.winner = self.check_winner()
-            if self.current_player == 'x':
-                self.current_player = 'o'
-            else:
-                self.current_player = 'x'
+        self.board[self.row][self.col] = self.current_player
+        self.winner = self.check_winner()
+        self.current_player = 'o' if self.current_player == 'x' else 'x'
+
     def render_board(self):
         '''Display the current game board to screen.'''
         board = self.board

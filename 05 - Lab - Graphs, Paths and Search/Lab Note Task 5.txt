@@ -1,0 +1,13 @@
+Hoang Bao Phuc Chau
+103523966
+Task 5 Lab Note
+1. DFS:
+    This search method starts at the root and explores as far as possible along each branch before backtracking
+    This strategy allows it to travel deep into the graph quicly.
+    Use case: When the programmer wants to explore all the possibilities before backing up
+2. BFS
+    This search method starts at the root node and explores all neighboring nodes at the present depth prior to moving on to nodes at the next depth level. It uses a queue to keep track of the next location to explore.
+3. SearchAStar
+    This search method is widely used when people want to find path and traverse through graph. It use a heuristic to estimate how close the end goal is from a certain node. It's faster and more efficient than BFS
+4. Dijkstra
+    This search method is used for findingg the shortest paths between nodes in a graph. Compared to BFS, it accounts for weighted paths, allowing it to determine the shortest path by distance, not simply the fewest edges.

@@ -2,16 +2,16 @@ class Graph:
 
     def __init__(self):
         self.goals = {
-            'keep fit': 5,
+            'sleep': 5,
             'eat': 3,
             'study': 2
         }
 
         self.actions = {
-            'eat fast food': {'eat': -2, 'keep fit': +3, 'study': +1},
-            'work in mine': {'eat': 6, 'keep fit': +2, 'study': -3},
-            'eat healthy food': {'eat': -4, 'keep fit': -3, 'study': +3},
-            'doing homework': {'eat': -1, 'keep fit': -1, 'study': -1}
+            'eat fast food': {'eat': -2, 'sleep': +3, 'study': +1},
+            'sleep at night': {'eat': 6, 'sleep': +2, 'study': -3},
+            'eat healthy food': {'eat': -4, 'sleep': -3, 'study': +3},
+            'doing homework': {'eat': -1, 'sleep': -1, 'study': -1}
         }
 
 
