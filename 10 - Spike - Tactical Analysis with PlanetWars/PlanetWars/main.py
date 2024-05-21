@@ -509,16 +509,17 @@ if __name__ == '__main__':
 
     settings = {
         # text file - planet position/size, player start locations (and fleet details)
-        'map_file': './maps/map20.txt',
+        'map_file': './maps/map30.txt',
         # usually two players (what maps expect) but can have more
         'players': [
             #'OneMove',
             #'Blanko',
-            'Rando',
+            #'Rando',
             'BestWorst',
+            'TacticalMove' ,
         ],
         # start / stop conditions
-        'max_game_length': 500,
+        'max_game_length': 2000,
         'start_paused': True,
         'game_over_quit': True,  # quit (close window) when game stops
         # game updates per second (not UI) ?

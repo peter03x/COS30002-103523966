@@ -26,4 +26,4 @@ class BestWorst(object):
 
             # Launch a new fleet if there are enough ships
             if src is not None and src.num_ships > 10:
-                gameinfo.planet_order(src, dest, int(src.num_ships * 0.75))
+                gameinfo.planet_order(src, dest, int(src.num_ships * 0.5))
