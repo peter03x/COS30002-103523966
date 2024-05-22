@@ -28,7 +28,7 @@ class Path(object):
         current way point. The cursor can be moved to the next way point by
         calling set_next_way_pt(). Paths can be open or looped. '''
 
-    def __init__(self, num_pts=0, minx=0, miny=0, maxx=0, maxy=0, looped=False):
+    def __init__(self, num_pts=1, minx=0, miny=0, maxx=0, maxy=0, looped=False):
         ''' If number of points (num_pts) is provided, a path of random
             non-overlapping waypoints will be created in the region specified
             by the min/max x/y values provided. If the path is looped, the last
@@ -39,9 +39,10 @@ class Path(object):
         self._pts = []
         if num_pts > 0:
             self.create_random_path(num_pts, minx, miny, maxx, maxy)
-        #TODO: Add renderables
+
         self.renderable = None
-        self._reset()
+        # self._reset()
+
 
     def current_pt(self):
         ''' Return the way point of the path indicated by the current point
@@ -78,7 +79,17 @@ class Path(object):
             temp.y += midY
             self._pts.append(temp)
 
+        print(self._pts)
+
         self._reset()  # reset num_pts and cur_pt_idx
+
+        self.renderable = PolyLine(
+            self._pts,
+            colour=COLOUR_NAMES['PINK'],
+            batch=window.get_batch("info"),
+            closed=self.looped
+        )
+
         return self._pts
 
     def add_way_pt(self, new_pt):
@@ -95,17 +106,10 @@ class Path(object):
 
     def _reset(self):
         ''' Point to the first waypoint and set the limit count based on the
-            number of points we've been given. 
+            number of points we've been given.
             Also updates the path renderable.'''
         self._cur_pt_idx = 0
         self._num_pts = len(self._pts)
-        self.renderable = PolyLine(
-            self._pts,
-            colour=COLOUR_NAMES['PINK'],
-            batch=window.get_batch("info"),
-            closed=self.looped
-        )
-
 
     def clear(self):
         ''' Remove all way points and reset internal counters. '''
@@ -116,4 +120,3 @@ class Path(object):
         ''' Simple wrapper to return a reference to the internal list of
             points.'''
         return self._pts
-
