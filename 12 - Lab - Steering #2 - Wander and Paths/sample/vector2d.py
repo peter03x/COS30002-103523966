@@ -121,7 +121,7 @@ class Vector2D(object):
     def angle_degrees(self):
         ''' return the angle of self in degrees '''
         return degrees(self.angle())
-    
+
     def __neg__(self):  #
         ''' get_reverse(), but using - operator based instead. '''
         return Vector2D(-self.x, -self.y)

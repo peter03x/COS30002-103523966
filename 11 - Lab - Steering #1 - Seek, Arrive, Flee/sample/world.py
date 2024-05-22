@@ -72,3 +72,5 @@ class World(object):
 		elif symbol in AGENT_MODES:
 			for agent in self.agents:
 				agent.mode = AGENT_MODES[symbol]
+		else:
+			self.agents.append(Agent(self))

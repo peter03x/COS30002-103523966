@@ -1,4 +1,4 @@
-'''Autonomous Agent Movement: Paths and Wandering
+'''Autonomous Agent Movement: Seek, Arrive and Flee
 
 Created for COS30002 AI for Games, Lab,
 by  Clinton Woodward <cwoodward@swin.edu.au>
@@ -29,5 +29,3 @@ if __name__ == '__main__':
 	game.game = game.Game()
 	pyglet.clock.schedule_interval(game.game.update, 1/60.)
 	pyglet.app.run()
-
-

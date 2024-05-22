@@ -1,7 +1,6 @@
 '''A 2d world that supports agents with steering behaviour
 
-Created for COS30002 AI for Games by Clinton Woodward <cwoodward@swin.edu.au>
-
+Created for COS30002 AI for Games, by Clinton Woodward <cwoodward@swin.edu.au>
 For class use only. Do not publically share or post this code without permission.
 
 '''
@@ -12,24 +11,20 @@ import pyglet
 from graphics import COLOUR_NAMES, window
 from agent import Agent, AGENT_MODES  # Agent with seek, arrive, flee and pursuit
 
-
 class World(object):
-
 	def __init__(self, cx, cy):
 		self.cx = cx
 		self.cy = cy
-		self.target = Vector2D(cx / 2, cy / 2)
 		self.hunter = None
 		self.agents = []
 		self.paused = True
-		self.show_info = True
+		self.showinfo = True
 		self.target = pyglet.shapes.Star(
 			cx / 2, cy / 2, 
 			30, 1, 4, 
 			color=COLOUR_NAMES['RED'], 
 			batch=window.get_batch("main")
 		)
-
 
 	def update(self, delta):
 		if not self.paused:
@@ -65,7 +60,7 @@ class World(object):
 		mat.transform_vector2d_list(wld_pts)
 		# done
 		return wld_pts
-
+	
 	def input_mouse(self, x, y, button, modifiers):
 		if button == 1:  # left
 			self.target.x = x
@@ -77,3 +72,5 @@ class World(object):
 		elif symbol in AGENT_MODES:
 			for agent in self.agents:
 				agent.mode = AGENT_MODES[symbol]
+		else:
+			self.agents.append(Agent(self))
