@@ -1,11 +1,1 @@
-I'm dead. BestWorst, [1]
-   1: Player 1 launched 52 (left 53) ships from planet 2 to planet 18
-  16: Player 1 launched 64 (left 64) ships from planet 2 to planet 19
-  30: Player 1 launched 67 (left 67) ships from planet 2 to planet 19
-  44: Player 1 launched 68 (left 69) ships from planet 2 to planet 10
-  60: Player 1 launched 74 (left 75) ships from planet 2 to planet 11
-  72: Player 1 launched 67 (left 68) ships from planet 2 to planet 8
-  79: Player 1 launched 51 (left 52) ships from planet 2 to planet 9
-  90: Player 1 launched 53 (left 54) ships from planet 2 to planet 1
-  93: Player 1 launched 34 (left 35) ships from planet 2 to planet 1
-  96: Player 1 launched 25 (left 25) ships from planet 2 to planet 18
+I'm dead. Blanko, [1]

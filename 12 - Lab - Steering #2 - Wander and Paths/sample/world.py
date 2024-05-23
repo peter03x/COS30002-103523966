@@ -81,7 +81,7 @@ class World(object):
 
 			for agent in self.agents:
 				agent.randomise_path()
-		else:
+		elif symbol == pyglet.window.key.A:
 			self.agents.append(Agent(self))
 	def transform_points(self, points, pos, forward, side, scale):
 		''' Transform the given list of points, using the provided position,

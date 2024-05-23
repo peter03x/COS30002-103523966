@@ -1,11 +1,1 @@
 I'm dead. TacticalMove, [2]
-   1: Player 2 launched 78 (left 27) ships from planet 3 to planet 18
-  15: Player 2 launched 72 (left 25) ships from planet 3 to planet 19
-  30: Player 2 launched 75 (left 25) ships from planet 3 to planet 10
-  42: Player 2 launched 105 (left 36) ships from planet 18 to planet 11
-  62: Player 2 launched 138 (left 47) ships from planet 3 to planet 8
-  73: Player 2 launched 143 (left 48) ships from planet 18 to planet 9
-  87: Player 2 launched 169 (left 57) ships from planet 19 to planet 1
- 101: Player 2 launched 181 (left 61) ships from planet 3 to planet 2
- 106: Player 2 launched 159 (left 54) ships from planet 18 to planet 22
- 111: I won! TacticalMove [2]
