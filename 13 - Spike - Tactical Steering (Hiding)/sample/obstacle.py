@@ -24,20 +24,20 @@ class Obstacle(object):
         self.target = pyglet.shapes.Circle(
             x=self.pos.x, y=self.pos.y,
             radius=5.0,
-            color=COLOUR_NAMES['WHITE-TRANSPARENT'],
+            color=COLOUR_NAMES['INVISIBLE'],
             batch=window.get_batch("main")
         )
 
         self.circle_emphasize = pyglet.shapes.Circle(
             x=self.pos.x, y=self.pos.y,
             radius=self.radius,
-            color=COLOUR_NAMES['WHITE-TRANSPARENT'],
+            color=COLOUR_NAMES['INVISIBLE'],
             batch=window.get_batch("main")
         )
 
     def is_safe(self):
         hunter = self.world.hunter
-        safe_distance = 150 + self.radius * 3
+        safe_distance = 50 + self.radius * 2
         distance = (self.pos - hunter.pos).length()
 
         if distance > safe_distance:

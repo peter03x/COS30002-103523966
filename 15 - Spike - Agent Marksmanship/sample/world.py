@@ -10,7 +10,6 @@ from vector2d import Vector2D
 from matrix33 import Matrix33
 import pyglet
 from graphics import COLOUR_NAMES, window
-from agent import Agent # Agent with seek, arrive, flee and pursuit
 from agent import Agent, Prey, Hunter
 
 

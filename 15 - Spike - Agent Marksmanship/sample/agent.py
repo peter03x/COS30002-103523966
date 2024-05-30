@@ -168,7 +168,7 @@ class Hunter(Agent):
 		return (2 * (prey.pos - self.pos) + 2 * colliding_time * (
 					prey.vel - self.vel) + prey.accel * colliding_time * colliding_time) / (
 					colliding_time * colliding_time)
-	#The way to get acceleration of the hunter was figured out from a youtube video: https://www.youtube.com/watch?v=m9jNpzk71ow
+	#The way to get acceleration of the projectile was figured out from a youtube video: https://www.youtube.com/watch?v=m9jNpzk71ow
 
 
 	def shoot(self):

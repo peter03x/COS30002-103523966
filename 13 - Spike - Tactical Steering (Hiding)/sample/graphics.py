@@ -3,7 +3,7 @@ import pyglet, math
 COLOUR_NAMES = {
 	'BLACK':  (000, 000, 000, 255),
 	'WHITE':  (255, 255, 255, 255),
-	'WHITE-TRANSPARENT': (255, 255, 255, 0),
+	'INVISIBLE': (255, 255, 255, 0),
 	'RED':    (255, 000, 000, 255),
 	'GREEN':  (000, 255, 000, 255),
 	'BLUE':   (000, 000 ,255, 255),

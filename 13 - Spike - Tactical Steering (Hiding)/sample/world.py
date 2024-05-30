@@ -25,12 +25,12 @@ class World(object):
 		self.obstacles = []
 		self.paused = True
 		self.show_info = True
-		self.target = pyglet.shapes.Star(
-			cx / 2, cy / 2, 
-			30, 1, 4, 
-			color=COLOUR_NAMES['RED'], 
-			batch=window.get_batch("main")
-		)
+		# self.target = pyglet.shapes.Star(
+		# 	cx / 2, cy / 2,
+		# 	30, 1, 4,
+		# 	color=COLOUR_NAMES['RED'],
+		# 	batch=window.get_batch("main")
+		# )
 
 
 
@@ -41,8 +41,6 @@ class World(object):
 				obstacle.update(delta)
 
 			self.prey.update(delta)
-
-
 			self.hunter.update(delta)
 
 
@@ -58,11 +56,11 @@ class World(object):
 		elif pos.y < 0:
 			pos.y = max_y - pos.y
 
-	def input_mouse(self, x, y, button, modifiers):
-		if button == 1:  # left
-			self.target.x = x
-			self.target.y = y
-	
+	# def input_mouse(self, x, y, button, modifiers):
+	# 	if button == 1:  # left
+	# 		self.target.x = x
+	# 		self.target.y = y
+
 	# def input_keyboard(self, symbol, modifiers):
 	# 	if symbol == pyglet.window.key.P:
 	# 		self.paused = not self.paused

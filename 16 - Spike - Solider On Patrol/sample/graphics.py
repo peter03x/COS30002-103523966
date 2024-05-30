@@ -420,11 +420,13 @@ class GameWindow(pyglet.window.Window):
 		self.batches = {
 			"main": pyglet.graphics.Batch(),
 			"info": pyglet.graphics.Batch(),
-			"best_obstacle": pyglet.graphics.Batch()
 		}
 		self.labels = {
-			'health':	pyglet.text.Label('', x=100, y=20, color=COLOUR_NAMES['WHITE']),
-			'projectile': pyglet.text.Label('', x=320, y=20, color=COLOUR_NAMES['WHITE'])
+			'hunter mode':	pyglet.text.Label('', x=100, y=20, color=COLOUR_NAMES['WHITE']),
+			'prey count': pyglet.text.Label('', x=320, y=20, color=COLOUR_NAMES['WHITE']),
+			'prey destroyed count': pyglet.text.Label('', x=100, y=720, color=COLOUR_NAMES['WHITE']),
+			'hunter state': pyglet.text.Label('', x=320, y=720, color=COLOUR_NAMES['WHITE']),
+			'total ammo': pyglet.text.Label('', x=620, y=720, color=COLOUR_NAMES['WHITE']),
 		}
 		# add extra event handlers we need
 		self.add_handlers()

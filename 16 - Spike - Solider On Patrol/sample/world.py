@@ -10,8 +10,7 @@ from vector2d import Vector2D
 from matrix33 import Matrix33
 import pyglet
 from graphics import COLOUR_NAMES, window
-from agent import Agent # Agent with seek, arrive, flee and pursuit
-from agent import Agent, Prey, Hunter
+from agent import Agent, Hunter, Prey
 
 
 class World(object):
@@ -20,21 +19,38 @@ class World(object):
 		self.cx = cx
 		self.cy = cy
 		self.target = Vector2D(cx / 2, cy / 2)
+		self.preys = [Prey(self)]
 		self.hunter = Hunter(self)
-		self.prey = Prey(self)
 		self.paused = True
 		self.show_info = True
-
+		self.target_destroyed = 0
+		self.total_target_left = 1  # Initialize this if it's supposed to be a decrement
+		self.target = pyglet.shapes.Star(
+			cx / 2, cy / 2,
+			30, 1, 4,
+			color=COLOUR_NAMES['RED'],
+			batch=window.get_batch("main")
+		)
 
 
 	def update(self, delta):
 		if not self.paused:
-			self.prey.update(delta)
-			window._update_label("health", "Health: {}/{}".format(self.prey.health, self.prey.max_health))
-
 			self.hunter.update(delta)
-			window._update_label("projectile", "Projectile type: {}".format(self.hunter.mode))
+			for projectile in self.hunter.projectiles:
+				projectile.update(delta)
+			for prey in self.preys:
+				prey.update(delta)
 
+			window._update_label('hunter mode', "Hunter mode: {}".format(self.hunter.mode))
+			prey_count = self.total_target_left
+			window._update_label("prey count", "Total prey currently: {}".format(prey_count))
+			window._update_label("prey destroyed count", "Total prey destroyed: {}".format(self.target_destroyed))
+			window._update_label("total ammo", "Ammo: {}/{}".format(self.hunter.ammo, self.hunter.max_ammo))
+
+			if self.hunter.mode == "patrol":
+				window._update_label('hunter state', "Hunter move mode: {}".format(self.hunter.FSM.current_state()))
+			else:
+				window._update_label('hunter state', "Hunter move mode: {}".format(self.hunter.FSM.current_state()))
 	def wrap_around(self, pos):
 		''' Treat world as a toroidal space. Updates parameter object pos '''
 		max_x, max_y = self.cx, self.cy
@@ -48,30 +64,28 @@ class World(object):
 			pos.y = max_y - pos.y
 
 	def input_mouse(self, x, y, button, modifiers):
-		if button == pyglet.window.mouse.LEFT:
-			self.prey.update_first_destination(x, y)
-		elif button == pyglet.window.mouse.RIGHT:
-			self.prey.update_second_destination(x, y)
+		if button == 1:  # left
+			self.target.x = x
+			self.target.y = y
 
 	def input_keyboard(self, symbol, modifiers):
-
 		if symbol == pyglet.window.key.P:
 			self.paused = not self.paused
 
-		elif symbol == pyglet.window.key.SPACE:
-			self.hunter.shoot()
+		elif symbol == pyglet.window.key.A:
+			self.preys.append(Prey(self))
+			self.total_target_left += 1
 
-		elif symbol == pyglet.window.key._1:
-			self.hunter.mode = "hand gun"
+		elif symbol == pyglet.window.key.Z:
+			self.hunter.mode = 'patrol'
+			self.hunter.FSM.mode = self.hunter.mode
 
-		elif symbol == pyglet.window.key._2:
-			self.hunter.mode = "rifle"
+		elif symbol == pyglet.window.key.X:
+			self.hunter.mode = 'attack'
+			self.hunter.FSM.mode = self.hunter.mode
 
-		elif symbol == pyglet.window.key._3:
-			self.hunter.mode = "rocket"
-
-		elif symbol == pyglet.window.key._4:
-			self.hunter.mode = "hand grenade"
+		elif symbol == pyglet.window.key.R:
+			self.hunter.randomise_path()
 
 	def transform_points(self, points, pos, forward, side, scale):
 		''' Transform the given list of points, using the provided position,

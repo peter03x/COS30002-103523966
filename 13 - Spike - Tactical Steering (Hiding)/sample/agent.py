@@ -27,7 +27,7 @@ class Agent(object):
 		'fast': 0.2,  # Quick deceleration
 	}
 
-	def __init__(self, world=None, scale=30.0, mass=1.0, color='BLUE'):
+	def __init__(self, world=None, scale=30.0, mass=1.0, color='ORANGE'):
 		# keep a reference to the world object
 		self.world = world
 		dir = radians(random() * 360)
@@ -43,8 +43,6 @@ class Agent(object):
 		self.mass = mass
 		self.max_speed = scale * 10
 
-		# data for drawing this agent
-		self.color = 'ORANGE'
 		self.vehicle_shape = [
 			Point2D(-10,  6),
 			Point2D( 10,  0),
@@ -144,11 +142,11 @@ class Agent(object):
 		return Vector2D()
 
 class Hunter(Agent):
-	def __init__(self, world=None, scale=20.0, mass=5.0, color='GREEN'):
+	def __init__(self, world=None, scale=20.0, mass=5.0, color='BLUE'):
 
 		super().__init__(world, scale, mass, color)
-
-		self.action = "wander"
+		self.color = color
+		self.mode = "wander"
 		# wander info render objects
 		self.info_wander_circle = pyglet.shapes.Circle(0, 0, 0, color=COLOUR_NAMES['WHITE'], batch=window.get_batch("info"))
 		self.info_wander_target = pyglet.shapes.Circle(0, 0, 0, color=COLOUR_NAMES['GREEN'], batch=window.get_batch("info"))
@@ -182,17 +180,17 @@ class Hunter(Agent):
 		self.max_force = 500.0
 
 	def calculate(self, delta):
-		if self.target_distance() < 200:
-			self.action = "hunt"
-			target_pos = self.world.prey.pos
-			accel = self.seek(target_pos)
-		else:
-			self.status = "wander"
-			accel = self.wander(delta)
+		self.mode = "wander"
+		accel = self.wander(delta)
 
 		nearby_obstacle = self.nearby_obstacle()
+		# Flee the near obstacle
+		nearby_obstacle = self.nearby_obstacle()
+
 		if nearby_obstacle:
 			accel = self.flee(nearby_obstacle)
+
+		self.accel = accel
 
 		return accel or Vector2D(0, 0)  # Ensure a Vector2D is returned even if all fails
 
@@ -236,32 +234,26 @@ class Hunter(Agent):
 class Prey(Agent):
 	def __init__(self, world=None, scale=30.0, mass=1.0, color='ORANGE'):
 		super().__init__(world, scale, mass, color)
-		self.action = "idle"
-		target_pos = self.pos
+		self.mode = "idle"
 
 	def calculate(self, delta):
 		if not self.is_alerted():
-			self.action = "idle"
+			self.mode = "idle"
 			target_pos = self.pos
 
 		else:
-			self.action = "hide"
+			self.mode = "hide"
 			best_obstacle = self.best_obstacle_to_go()
 
-			# get vector from prey to Safest Object
 			to_best_obstacle_pos = best_obstacle.pos - self.pos
-
-			# Determine the vector position behind that Safest Object
 			to_behind_best_obstacle_pos = to_best_obstacle_pos.copy().normalise() * (sqrt(to_best_obstacle_pos.copy().x * to_best_obstacle_pos.copy().x + to_best_obstacle_pos.copy().y * to_best_obstacle_pos.copy().y) + 10.0 + best_obstacle.radius)
 
-			# Determine the position behind that Safest Object
 			behind_best_obstacle_pos = to_behind_best_obstacle_pos + self.pos
 			target_pos = behind_best_obstacle_pos
 
-			# Emphasize target safest planet as color of red
 			for obstacle in self.world.obstacles:
-				obstacle.target.color = COLOUR_NAMES['WHITE-TRANSPARENT']
-				obstacle.circle_emphasize.color = COLOUR_NAMES['WHITE-TRANSPARENT']
+				obstacle.target.color = COLOUR_NAMES['INVISIBLE']
+				obstacle.circle_emphasize.color = COLOUR_NAMES['INVISIBLE']
 
 			best_obstacle.color = COLOUR_NAMES[self.color]
 			best_obstacle.target.color = COLOUR_NAMES[self.color]
@@ -277,7 +269,7 @@ class Prey(Agent):
 		if nearby_obstacle:
 			accel = self.flee(nearby_obstacle)
 
-		self.acceleration = accel
+		self.accel = accel
 
 		return accel
 
