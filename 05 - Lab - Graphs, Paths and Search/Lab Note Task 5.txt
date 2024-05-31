@@ -1,13 +1,91 @@
 Hoang Bao Phuc Chau
 103523966
 Task 5 Lab Note
-1. DFS:
-    This search method starts at the root and explores as far as possible along each branch before backtracking
-    This strategy allows it to travel deep into the graph quicly.
-    Use case: When the programmer wants to explore all the possibilities before backing up
-2. BFS
-    This search method starts at the root node and explores all neighboring nodes at the present depth prior to moving on to nodes at the next depth level. It uses a queue to keep track of the next location to explore.
-3. SearchAStar
-    This search method is widely used when people want to find path and traverse through graph. It use a heuristic to estimate how close the end goal is from a certain node. It's faster and more efficient than BFS
-4. Dijkstra
-    This search method is used for findingg the shortest paths between nodes in a graph. Compared to BFS, it accounts for weighted paths, allowing it to determine the shortest path by distance, not simply the fewest edges.
+Depth-First Search ("SearchDFS" method in searches.py file):
+
+    This method utilizes a stack (implemented as a list) to manage the nodes awaiting exploration, starting from the source
+    node which is added to both the stack and a route dictionary. It explores each branch to its fullest extent
+    before backtracking.
+
+    A dictionary (route) and a set of visited nodes (closed) are maintained to track the path and avoid revisiting nodes.
+
+    In each iteration, the method pops the last node from the stack, checks if it's the target node,
+    marks it as visited, and if not the target, adds its unvisited neighbors to the stack and the route dictionary.
+    If it is the target, the function returns the route, open nodes, closed nodes, and the step count.
+
+Breadth-First Search ("SearchBFS" method in searches.py file):
+
+    This approach explores all nodes at one depth level before moving to the next, using a queue (implemented as a list)
+    to keep track of nodes to visit next.
+
+    It maintains a route dictionary and a set of visited nodes (closed) for path storage and repeated state checking.
+
+    Each loop iteration processes the first node in the queue, marks it as visited,
+    and checks if it's the target node. If found, it returns the path including the route, open and closed nodes,
+    and the number of steps taken. Otherwise, it adds unvisited neighbors to the queue and the route dictionary.
+
+Dijkstra's Algorithm ("SearchDijkstra" method in searches.py file):
+
+    This algorithm uses a priority queue to expand nodes based on the lowest cumulative cost from the start node (cost-so-far).
+    Nodes are expanded based on the lowest cost-so-far value, marked as visited, and checked
+    if they are the target node. If the target is found, it returns the path information.
+    Otherwise, it computes the travel cost to each neighbor and updates the priority queue.
+
+    The algorithm also employs a closed set to prevent revisiting expanded nodes and only updates or adds neighbors
+    in the priority queue if their estimated cost is not in the closed set.
+
+A Search ("SearchAStar" method in searches.py file):*
+
+    Similar to Dijkstra's Algorithm but includes an admissible heuristic cost in the total cost estimation used in
+    the PriorityQueue. The total cost (fCost) is calculated as the sum of cost-so-far and the heuristic cost.
+
+    The heuristic function (Manhattan distance, Hypot distance, or Max) estimates the lowest possible cost
+    from a node to the goal. For diagonals, the hypot function (using the Pythagorean theorem) is used to
+    calculate the straight-line distance.
+
+    All heuristics are scaled by the minimum edge cost (1.0 for moving from a CLEAR box to another CLEAR box),
+    ensuring the heuristic remains admissible.
+
+The min edge cost is 1.0
+
+
+I uncommented these code lines:
+            # UP (i + nx)
+            if (i+nx) < len(self.boxes):
+                self._add_edge(i, i+nx)
+            # DOWN (i - nx)
+            if (i-nx) >= 0:
+                self._add_edge(i, i-nx)
+            # RIGHT (i + 1)
+            if (i%nx + 1) < nx:
+                self._add_edge(i, i+1)
+            # LEFT (i - 1)
+            if (i%nx - 1) >= 0:
+                self._add_edge(i, i-1)
+
+            # Diagonal connections
+            # UP LEFT(i + nx - 1)
+            j = i + nx
+            if (j - 1) < len(self.boxes) and (j % nx - 1) >= 0:
+                self._add_edge(i, j - 1, 1.4142)  # sqrt(1+1)
+            # UP RIGHT (i + nx + 1)
+            j = i + nx
+            if (j + 1) < len(self.boxes) and (j % nx + 1) < nx:
+                self._add_edge(i, j + 1, 1.4142)
+            # DOWN LEFT(i - nx - 1)
+            j = i - nx
+            if (j - 1) >= 0 and (j % nx - 1) >= 0:
+                print(i, j, j % nx)
+                self._add_edge(i, j - 1, 1.4142)
+            # DOWN RIGHT (i - nx + 1)
+            j = i - nx
+            if (j + 1) >= 0 and (j % nx + 1) < nx:
+                self._add_edge(i, j + 1, 1.4142)
+
+Upon enabling diagonal movement for the bot, the Manhattan distance becomes suboptimal as a heuristic cost function.
+Instead, the Euclidean distance, which is implemented in the method "_hypot" within the "box_world.py" file,
+should be used. Consequently, the line of code activating this method has been uncommented to make use of the
+Euclidean distance for more accurate heuristic calculations:
+        #self.graph.cost_h = self._manhattan
+        self.graph.cost_h = self._hypot
+        #self.graph.cost_h = self._max

@@ -76,15 +76,15 @@ class Agent(object):
 		self.info_vel_vector = ArrowLine(Vector2D(0,0), Vector2D(0,0), colour=COLOUR_NAMES['AQUA'], batch=window.get_batch("info"))
 		self.info_net_vectors = [
 			ArrowLine(
-				Vector2D(0,0), 
-				Vector2D(0,0), 
-				colour=COLOUR_NAMES['GREY'], 
+				Vector2D(0,0),
+				Vector2D(0,0),
+				colour=COLOUR_NAMES['GREY'],
 				batch=window.get_batch("info")
 			),
 			ArrowLine(
-				Vector2D(0,0), 
-				Vector2D(0,0), 
-				colour=COLOUR_NAMES['GREY'], 
+				Vector2D(0,0),
+				Vector2D(0,0),
+				colour=COLOUR_NAMES['GREY'],
 				batch=window.get_batch("info")
 			),
 		]
@@ -235,7 +235,7 @@ class Agent(object):
 	def follow_path(self):
 		if self.path.is_finished():
 			# Apply the Arrive behavior at the final point
-			return self.arrive(self.path.current_pt())
+			return self.arrive(self.path.current_pt(), 'slow')
 		else:
 			# Check if close enough to current waypoint to switch to the next
 			if self.current_waypoint_distance() < self.waypoint_threshold:

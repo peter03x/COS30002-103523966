@@ -50,12 +50,12 @@ class World(object):
 		elif symbol == pyglet.window.key.A:
 			self.agents.append(Agent(self))
 
-		elif symbol == pyglet.window.key.W:
+		elif symbol == pyglet.window.key.Z:
 			self.current_mode = "wander"
 			for agent in self.agents:
 				agent.mode = "wander"
 
-		elif symbol == pyglet.window.key.S:
+		elif symbol == pyglet.window.key.X:
 			self.current_mode = "separation"
 			for agent in self.agents:
 				agent.mode = "separation"
@@ -65,7 +65,7 @@ class World(object):
 			for agent in self.agents:
 				agent.mode = "cohesion"
 
-		elif symbol == pyglet.window.key.L:
+		elif symbol == pyglet.window.key.V:
 			self.current_mode = "alignment"
 			for agent in self.agents:
 				agent.mode = "alignment"

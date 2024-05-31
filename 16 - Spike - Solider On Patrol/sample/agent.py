@@ -215,16 +215,14 @@ class Hunter(Agent):
                 nearest_target.health = max(0, nearest_target.health - 20)
                 del self.projectiles[i]
 
-            elif self.projectiles[i].pos.x > self.world.cx or self.projectiles[i].pos.x < 0 or self.projectiles[
-                i].pos.y > self.world.cy or self.projectiles[i].pos.y < 0:
+            elif (self.projectiles[i].pos.x > self.world.cx or self.projectiles[i].pos.x < 0
+                  or self.projectiles[i].pos.y > self.world.cy or self.projectiles[i].pos.y < 0):
                 del self.projectiles[i]
 
             else:
                 i += 1
 
-
 class Projectile(Agent):
-
     def __init__(self, world=None, color='BLUE', x=0., y=0., accel=Vector2D()):
         super().__init__(world, 5., 1.0, color)
         self.accel = accel
@@ -254,7 +252,6 @@ class Projectile(Agent):
 
         self.vehicle.x = self.pos.x
         self.vehicle.y = self.pos.y
-
 
 class Prey(Agent):
     def __init__(self, world=None, scale=10.0, mass=1.0, color='ORANGE'):
@@ -306,7 +303,6 @@ class Prey(Agent):
                 self.world.total_target_left -= 1
                 self.world.target_destroyed += 1
                 self.update_count += 1
-
 
 class FSM(Agent):
     def __init__(self, hunter):

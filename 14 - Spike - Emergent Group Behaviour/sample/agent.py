@@ -102,20 +102,6 @@ class Agent(object):
 		self.near_range = 100
 		self.far_range = 200
 
-		self.near_range_circle = pyglet.shapes.Arc(
-			x=self.pos.x, y=self.pos.y,
-			color=COLOUR_NAMES['INVISIBLE'],
-			radius=self.near_range,
-			batch=window.get_batch("main")
-		)
-
-		self.far_range_circle = pyglet.shapes.Arc(
-			x=self.pos.x, y=self.pos.y,
-			color=COLOUR_NAMES['INVISIBLE'],
-			radius=self.far_range,
-			batch=window.get_batch("main")
-		)
-
 		self.is_selected = False
 
 		# debug draw info?
@@ -123,7 +109,7 @@ class Agent(object):
 
 		# limits?
 		self.max_speed = 20.0 * scale
-		## max_force ??
+		self.max_force = 400.0
 
 		# debug draw info?
 		self.show_info = False

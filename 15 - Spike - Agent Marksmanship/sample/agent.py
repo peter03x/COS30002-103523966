@@ -126,11 +126,11 @@ class Hunter(Agent):
 		self.heading = Vector2D(0., 1.)
 
 	def projectile_speed(self):
-		if self.mode == "rifle" :
+		if self.mode == "rifle":
 			return 3.0
 		elif self.mode == "hand gun":
 			return 3.0
-		elif self.mode == "rocket" :
+		elif self.mode == "rocket":
 			return 1.5
 		elif self.mode == "hand grenade":
 			return 1.
@@ -197,8 +197,6 @@ class Hunter(Agent):
 
 			elif self.projectile.pos.x > self.world.cx or self.projectile.pos.x < 0 or self.projectile.pos.y > self.world.cy or self.projectile.pos.y < 0:
 				self.projectile = None
-
-
 class Projectile(Agent):
 
 	def __init__(self, world=None, color='BLUE', inaccuracy_rate=0.1, x=0., y=0., accel=Vector2D()):
@@ -221,15 +219,10 @@ class Projectile(Agent):
 		# new velocity
 		self.vel += self.accel * delta
 
-		# Slightly rotate velocity if the mode is Hand gun or hand generade
-		# To rotate the a vector(x, y) by an angle alpha to become new vector (x', y'), we have the formula:
-		# x' = x * cos(alpha) - y * sin(alpha)
-		# y' = x * sin(alpha) + y * cos(alpha)
-
 		new_x_vel = self.vel.x * cos(self.inaccuracy_rate * delta) - self.vel.y * sin(
 			self.inaccuracy_rate * delta)
-		new_y_vel = self.vel.y * sin(self.inaccuracy_rate * delta) + self.vel.y * cos(
-			self.inaccuracy_rate * delta)
+		new_y_vel = self.vel.x * sin(self.inaccuracy_rate * delta) + self.vel.y * cos(self.inaccuracy_rate * delta)
+
 		self.vel = Vector2D(new_x_vel, new_y_vel)
 
 		# update position
@@ -243,7 +236,7 @@ class Projectile(Agent):
 		self.vehicle.y = self.pos.y
 
 class Prey(Agent):
-	def __init__(self, world=None, scale=40.0, mass=1.0, color='ORANGE'):
+	def __init__(self, world=None, scale=20.0, mass=1.0, color='ORANGE'):
 		super().__init__(world, scale, mass, color)
 
 		self.collision_range = 20
@@ -285,7 +278,7 @@ class Prey(Agent):
 
 	def update_second_destination(self, x, y):
 
-		distance = (self.first_destination_pos - Vector2D(x=x, y=y)).length()
+		distance = (self.second_destination_pos - Vector2D(x=x, y=y)).length()
 
 		if distance >= 100:
 			self.second_destination_pos.x = x
@@ -316,21 +309,6 @@ class Prey(Agent):
 
 		return accel
 
-	def best_obstacle_to_go(self):
-		max_distance = float("-inf")
-		nearest_obstacle = self.world.obstacles[0]
-		for obstacle in self.world.obstacles:
-
-			if obstacle.is_safe():
-
-				from_target = self.world.hunter.pos - obstacle.pos
-				distance = from_target.length()
-
-				if distance > max_distance:
-					max_distance = distance
-					nearest_obstacle = obstacle
-
-		return nearest_obstacle
 
 	def update(self, delta):
 

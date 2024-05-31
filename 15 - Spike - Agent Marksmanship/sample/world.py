@@ -60,16 +60,16 @@ class World(object):
 		elif symbol == pyglet.window.key.SPACE:
 			self.hunter.shoot()
 
-		elif symbol == pyglet.window.key._1:
+		elif symbol == pyglet.window.key.Z:
 			self.hunter.mode = "hand gun"
 
-		elif symbol == pyglet.window.key._2:
+		elif symbol == pyglet.window.key.X:
 			self.hunter.mode = "rifle"
 
-		elif symbol == pyglet.window.key._3:
+		elif symbol == pyglet.window.key.C:
 			self.hunter.mode = "rocket"
 
-		elif symbol == pyglet.window.key._4:
+		elif symbol == pyglet.window.key.V:
 			self.hunter.mode = "hand grenade"
 
 	def transform_points(self, points, pos, forward, side, scale):
