@@ -9,7 +9,7 @@ from world import World
 
 class Obstacle(object):
 
-    def __init__(self, world=None, x=200., y=200., radius=30.0):
+    def __init__(self, world=None, x=100., y=100., radius=30.0):
         self.world = world
         self.pos = Vector2D(x, y)
         self.radius = radius
@@ -23,12 +23,12 @@ class Obstacle(object):
 
         self.target = pyglet.shapes.Circle(
             x=self.pos.x, y=self.pos.y,
-            radius=5.0,
+            radius=7.0,
             color=COLOUR_NAMES['INVISIBLE'],
             batch=window.get_batch("main")
         )
 
-        self.circle_emphasize = pyglet.shapes.Circle(
+        self.circle_emphasise = pyglet.shapes.Circle(
             x=self.pos.x, y=self.pos.y,
             radius=self.radius,
             color=COLOUR_NAMES['INVISIBLE'],
@@ -37,16 +37,17 @@ class Obstacle(object):
 
     def is_safe(self):
         hunter = self.world.hunter
-        safe_distance = 50 + self.radius * 2
+        safe_distance = 150 + self.radius * 2
         distance = (self.pos - hunter.pos).length()
+        is_safe = distance < safe_distance
 
-        if distance > safe_distance:
-            self.circle.color = COLOUR_NAMES['AQUA']
-
-        else:
+        if is_safe:
             self.circle.color = COLOUR_NAMES['RED']
 
-        return distance > safe_distance
+        else:
+            self.circle.color = COLOUR_NAMES['AQUA']
+
+        return is_safe
 
     def update(self, delta):
         self.is_safe()

@@ -199,24 +199,7 @@ class Agent(object):
 		self.vehicle.y = self.pos.y+self.vehicle_shape[0].y
 		self.vehicle.rotation = -self.heading.angle_degrees()
 
-		# Update Circle
-		self.near_range_circle.x = self.pos.x
-		self.near_range_circle.y = self.pos.y
-		self.far_range_circle.x = self.pos.x
-		self.far_range_circle.y = self.pos.y
-
-		if self.is_selected:
-			self.near_range_circle.color = COLOUR_NAMES["BLUE"]
-			self.far_range_circle.color = COLOUR_NAMES["BLUE"]
-		else:
-			self.near_range_circle.color = COLOUR_NAMES["INVISIBLE"]
-			self.far_range_circle.color = COLOUR_NAMES["INVISIBLE"]
-
-		# Update the agent colour
-		if self.is_selected or self.is_in_chosen_agent_range():
-			self.vehicle.color = COLOUR_NAMES["BLUE"]
-		else:
-			self.vehicle.color = COLOUR_NAMES[self.color]
+		self.vehicle.color = COLOUR_NAMES[self.color]
 	def speed(self):
 		return self.vel.length()
 
@@ -284,21 +267,6 @@ class Agent(object):
 				result.append((agent, distance))
 
 		return result
-
-	def is_in_chosen_agent_range(self):
-		if self.is_selected:
-			return False
-
-		chosen_agent = None
-		for agent in self.world.agents:
-			if agent.is_selected:
-				chosen_agent = agent
-				break
-
-		chosen_agent_vector = chosen_agent.pos - self.pos
-		distance = chosen_agent_vector.length()
-
-		return distance <= chosen_agent.far_range
 
 	def pursuit(self, evader):
 		''' this behaviour predicts where an agent will be in time T and seeks

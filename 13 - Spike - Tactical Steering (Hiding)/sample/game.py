@@ -14,8 +14,8 @@ class Game():
 		self.world.obstacles = [
 			Obstacle(self.world),
 			Obstacle(self.world, x=430., y=120., radius=20.),
-			Obstacle(self.world, x=500., y=450., radius=20.),
-			Obstacle(self.world, x=210., y=590., radius=30.),
+			Obstacle(self.world, x=580., y=450., radius=20.),
+			Obstacle(self.world, x=510., y=590., radius=30.),
 			Obstacle(self.world, x=760., y=870., radius=40.)]
 
 		# unpause the world ready for movement
@@ -24,8 +24,8 @@ class Game():
 	# def input_mouse(self, x, y, button, modifiers):
 	# 	self.world.input_mouse(x, y, button, modifiers)
 
-	# def input_keyboard(self, symbol, modifiers):
-	# 	self.world.input_keyboard(symbol, modifiers)
+	def input_keyboard(self, symbol, modifiers):
+		self.world.input_keyboard(symbol, modifiers)
 
 	def update(self, delta):
 		self.world.update(delta)

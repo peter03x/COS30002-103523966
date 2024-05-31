@@ -14,10 +14,6 @@ from graphics import COLOUR_NAMES, window, ArrowLine
 from math import sin, cos, radians, sqrt
 from random import random, randrange, uniform
 
-PANIC_DISTANCE = 100
-
-
-
 class Agent(object):
 
 	# NOTE: Class Object (not *instance*) variables!
@@ -38,7 +34,6 @@ class Agent(object):
 		self.heading = Vector2D(sin(dir), cos(dir))
 		self.side = self.heading.perp()
 		self.scale = Vector2D(scale, scale)  # easy scaling of agent size
-
 		self.accel = Vector2D() # current acceleration due to force
 		self.mass = mass
 		self.max_speed = scale * 10
@@ -58,6 +53,7 @@ class Agent(object):
 
 	def calculate(self, delta):
 		raise NotImplementedError("This method should be overridden.")
+
 	def update(self, delta):
 		''' update vehicle position and orientation '''
 		# calculate and set self.force to be applied
@@ -104,7 +100,7 @@ class Agent(object):
 	def is_near_obstacle(self, obstacle):
 		from_target = self.pos - obstacle.pos
 		distance = from_target.length()
-		alert_distance = obstacle.radius + 20.0
+		alert_distance = obstacle.radius + 25.0
 
 		return distance < alert_distance
 
@@ -184,8 +180,6 @@ class Hunter(Agent):
 		accel = self.wander(delta)
 
 		nearby_obstacle = self.nearby_obstacle()
-		# Flee the near obstacle
-		nearby_obstacle = self.nearby_obstacle()
 
 		if nearby_obstacle:
 			accel = self.flee(nearby_obstacle)
@@ -244,7 +238,6 @@ class Prey(Agent):
 		else:
 			self.mode = "hide"
 			best_obstacle = self.best_obstacle_to_go()
-
 			to_best_obstacle_pos = best_obstacle.pos - self.pos
 			to_behind_best_obstacle_pos = to_best_obstacle_pos.copy().normalise() * (sqrt(to_best_obstacle_pos.copy().x * to_best_obstacle_pos.copy().x + to_best_obstacle_pos.copy().y * to_best_obstacle_pos.copy().y) + 10.0 + best_obstacle.radius)
 
@@ -253,17 +246,16 @@ class Prey(Agent):
 
 			for obstacle in self.world.obstacles:
 				obstacle.target.color = COLOUR_NAMES['INVISIBLE']
-				obstacle.circle_emphasize.color = COLOUR_NAMES['INVISIBLE']
+				obstacle.circle_emphasise.color = COLOUR_NAMES['INVISIBLE']
 
 			best_obstacle.color = COLOUR_NAMES[self.color]
 			best_obstacle.target.color = COLOUR_NAMES[self.color]
-			best_obstacle.circle_emphasize.color = COLOUR_NAMES[self.color]
-			best_obstacle.target.x = behind_best_obstacle_pos.x
-			best_obstacle.target.y = behind_best_obstacle_pos.y
+			best_obstacle.circle_emphasise.color = COLOUR_NAMES[self.color]
+			best_obstacle.target.x = target_pos.x
+			best_obstacle.target.y = target_pos.y
 
 		accel = self.seek(target_pos)
 
-		# Flee the near obstacle
 		nearby_obstacle = self.nearby_obstacle()
 
 		if nearby_obstacle:

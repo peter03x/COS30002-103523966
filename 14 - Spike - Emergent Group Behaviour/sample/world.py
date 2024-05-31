@@ -47,20 +47,6 @@ class World(object):
 		if symbol == pyglet.window.key.P:
 			self.paused = not self.paused
 
-		elif symbol == pyglet.window.key.LEFT:
-			if self.selected_agent < len(self.agents) - 1:
-				self.selected_agent += 1
-			else:
-				self.selected_agent = 0
-			self.update_selected_agent()
-
-		elif symbol == pyglet.window.key.RIGHT:
-			if self.selected_agent > 0:
-				self.selected_agent -= 1
-			else:
-				self.selected_agent = len(self.agents) - 1
-			self.update_selected_agent()
-
 		elif symbol == pyglet.window.key.A:
 			self.agents.append(Agent(self))
 
@@ -84,7 +70,7 @@ class World(object):
 			for agent in self.agents:
 				agent.mode = "alignment"
 
-	def transform_points(self, points, pos, forward, side, scale):
+	def transform_points(self, points, pos, 	forward, side, scale):
 		''' Transform the given list of points, using the provided position,
 			direction and scale, to object world space. '''
 		# make a copy of original points (so we don't trash them)

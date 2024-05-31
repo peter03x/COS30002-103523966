@@ -61,18 +61,9 @@ class World(object):
 	# 		self.target.x = x
 	# 		self.target.y = y
 
-	# def input_keyboard(self, symbol, modifiers):
-	# 	if symbol == pyglet.window.key.P:
-	# 		self.paused = not self.paused
-	# 	elif symbol in AGENT_MODES:
-	# 		for agent in self.agents:
-	# 			agent.mode = AGENT_MODES[symbol]
-	# 	elif symbol == pyglet.window.key.R:
-	#
-	# 		for agent in self.agents:
-	# 			agent.randomise_path()
-	# 	elif symbol == pyglet.window.key.A:
-	# 		self.agents.append(Agent(self))
+	def input_keyboard(self, symbol, modifiers):
+		if symbol == pyglet.window.key.P:
+			self.paused = not self.paused
 
 	def transform_points(self, points, pos, forward, side, scale):
 		''' Transform the given list of points, using the provided position,
