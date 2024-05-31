@@ -46,7 +46,12 @@ A Search ("SearchAStar" method in searches.py file):*
     All heuristics are scaled by the minimum edge cost (1.0 for moving from a CLEAR box to another CLEAR box),
     ensuring the heuristic remains admissible.
 
-The min edge cost is 1.0
+In the "box_world.py" file, the "min_edge_cost" has been accurately set to 1.0. This value is important for the
+heuristic function used in the A* algorithm to remain admissible, meaning it should never overestimate the true
+cost from a given node to the goal (h(n) ≤ h*). By setting "min_edge_cost" at 1.0, which corresponds to the cost
+of moving from one CLEAR box to an adjacent CLEAR box, the Manhattan distance becomes the minimal potential cost
+between any two nodes, under the assumption that all edge costs are 1.0. This configuration ensures that the heuristic
+adheres to the criteria of being admissible.
 
 
 I uncommented these code lines:
